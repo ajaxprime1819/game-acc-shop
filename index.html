@@ -2,24 +2,73 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Game Shop</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Account Shop</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>🎮 Game Shop</h1>
+<header>
+    <h1>🎮 Game Account Shop</h1>
+    <p>Mua bán tài khoản game uy tín</p>
+</header>
 
-<div>
-    <h2>ACC Free Fire VIP</h2>
+<div class="container">
 
-    <p>Giá: 500.000đ</p>
+    <div class="card">
+        <img src="https://picsum.photos/300/180?1">
+        <h2>ACC Liên Quân VIP</h2>
+        <p>Rank Cao Thủ - 120 Skin</p>
 
-    <button>Mua ngay</button>
+        <div class="price">
+            1.200.000₫
+        </div>
+
+        <button onclick="buy('ACC Liên Quân VIP')">
+            Mua ngay
+        </button>
+
+    </div>
+
+    <div class="card">
+
+        <img src="https://picsum.photos/300/180?2">
+
+        <h2>ACC Free Fire</h2>
+
+        <p>100 Skin + 20 Súng Evo</p>
+
+        <div class="price">
+            900.000₫
+        </div>
+
+        <button onclick="buy('ACC Free Fire')">
+            Mua ngay
+        </button>
+
+    </div>
+
+    <div class="card">
+
+        <img src="https://picsum.photos/300/180?3">
+
+        <h2>ACC Roblox</h2>
+
+        <p>Blox Fruits Max Level</p>
+
+        <div class="price">
+            600.000₫
+        </div>
+
+        <button onclick="buy('ACC Roblox')">
+            Mua ngay
+        </button>
+
+    </div>
+
 </div>
 
-</body>
-    <h1>🎮 Shop Bán Tài Khoản Game</h1>
-
-    <p>Xin chào, đây là website đầu tiên của tôi.</p>
+<script src="script.js"></script>
 
 </body>
 </html>
