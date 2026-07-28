@@ -1,1 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
 
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  isAdmin   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  orders    Order[]
+  wallet    Wallet?
+}
+
+model Wallet {
+  id       Int     @id @default(autoincrement())
+  userId   Int     @unique
+  balance  Int     @default(0)
+  user     User    @relation(fields: [userId], references: [id])
+}
+
+model Provider {
+  id          Int       @id @default(autoincrement())
+  name        String
+  slug        String    @unique
+  baseUrl     String?
+  webhookPath String?   // optional custom webhook path
+  authType    String?   // none|bearer|basic|hmac
+  createdAt   DateTime  @default(now())
+  credentials ProviderCredential[]
+  transactions Transaction[]
+  enabled     Boolean   @default(true)
+}
+
+model ProviderCredential {
+  id         Int     @id @default(autoincrement())
+  providerId Int
+  key        String  // encrypted
+  secret     String? // encrypted
+  env        String  // sandbox|prod
+  provider   Provider @relation(fields: [providerId], references: [id])
+}
+
+model Transaction {
+  id             Int      @id @default(autoincrement())
+  providerId     Int
+  providerTxId   String?
+  type           String   // topup|redeem
+  amount         Int
+  status         String   // pending|success|failed
+  rawPayload     String?  // raw webhook/request (masked in UI)
+  createdAt      DateTime @default(now())
+  provider       Provider @relation(fields: [providerId], references: [id])
+  order          Order?   @relation(fields: [orderId], references: [id])
+  orderId        Int?
+}
+
+model Order {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  status      String   // pending|paid|delivered|cancelled
+  total       Int
+  createdAt   DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id])
+  transaction Transaction?
+}
